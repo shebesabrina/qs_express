@@ -1,4 +1,4 @@
-const MealFoods = require('../models/mealFoods')
+const MealFood = require('../models/mealFood')
 
 class MealFoodsController {
   static create(request, response, next){
