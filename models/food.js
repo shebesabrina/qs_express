@@ -25,6 +25,10 @@ class Food {
     .returning(['id', 'name', 'calories'])
     .then(rows => rows[0])
   }
+
+  static destroy(id) {
+    return database('foods').where('id', id).del()
+  }
 }
 
 module.exports = Food
