@@ -27,6 +27,18 @@ class FoodsController {
       }
     })
   }
+
+  static update(request, response, next){
+    let foodParams = request.body.food
+    Food.update(request.params.id, foodParams)
+    .then(food => {
+      if(food) {
+        response.json(food)
+      } else {
+        response.sendStatus(404)
+      }
+    })
+  }
 }
 
 module.exports = FoodsController

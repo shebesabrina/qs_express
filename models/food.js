@@ -18,6 +18,13 @@ class Food {
     return database('foods').where('id', id).select('id', 'name', 'calories')
     .then(rows => rows[0])
   }
+
+  static update(id, attrs) {
+    return database('foods').where('id', id)
+    .update(attrs)
+    .returning(['id', 'name', 'calories'])
+    .then(rows => rows[0])
+  }
 }
 
 module.exports = Food
