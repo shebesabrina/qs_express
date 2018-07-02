@@ -8,11 +8,16 @@ class Food {
   }
 
   static create(attributes){
-  return database('foods')
-  .insert(attributes)
-  .returning(['id', 'name', 'calories'])
-  .then(rows => rows[0])
-}
+    return database('foods')
+    .insert(attributes)
+    .returning(['id', 'name', 'calories'])
+    .then(rows => rows[0])
+  }
+
+  static find(id) {
+    return database('foods').where('id', id).select('id', 'name', 'calories')
+    .then(rows => rows[0])
+  }
 }
 
 module.exports = Food

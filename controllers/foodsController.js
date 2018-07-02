@@ -12,10 +12,20 @@ class FoodsController {
     if(foodParams.calories && foodParams.name) {
       Food.create(foodParams)
       .then(food => response.status(201).json(food))
-    }
-    else {
+    } else {
       response.sendStatus(400)
     }
+  }
+
+  static show(request, response, next){
+    Food.find(request.params.id)
+    .then(food => {
+      if(food) {
+        response.json(food)
+      } else {
+        response.sendStatus(404)
+      }
+    })
   }
 }
 
