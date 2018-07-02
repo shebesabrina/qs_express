@@ -2,7 +2,7 @@ const MealFood = require('../models/mealFood')
 
 class MealFoodsController {
   static create(request, response, next){
-    MealFoods.create(request.params)
+    MealFood.create(request.params)
     .then(mealFood => {
       if(mealFood){
         let message = `Successfully added ${mealFood.foodName} to ${mealFood.mealName}`
