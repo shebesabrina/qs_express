@@ -18,17 +18,6 @@ class MealsController {
       }
     })
   }
-
-  static foods(meal){
-    return database('foods')
-    .select('foods.id', 'foods.name', 'foods.calories')
-    .join('meal_foods', {'foods.id': 'meal_foods.food_id'})
-    .where('meal_foods.meal_id', meal.id)
-    .then(foods => {
-      meal.foods = foods
-      return meal
-    })
-  }
 }
 
 module.exports = MealsController
