@@ -5,7 +5,9 @@ class MealFoodsController {
     MealFood.create(request.params)
     .then(mealFood => {
       if(mealFood){
-        let message = `Successfully added ${mealFood.foodName} to ${mealFood.mealName}`
+        eval(pry.it)
+        let result = mealFood.rows[0]
+        let message = `Successfully added ${result.food_name} to ${result.meal_name}`
         response.status(201).json({message: message})
       } else {
         response.sendStatus(404)

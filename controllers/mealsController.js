@@ -9,7 +9,6 @@ class MealsController {
   static show(request, response, next){
     Meal.find(request.params.meal_id)
     .then(meal => {
-      eval(pry.it)
       if(meal) {
         Meal.foods(meal)
         .then(foods => response.json(foods))

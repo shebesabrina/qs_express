@@ -5,18 +5,17 @@ pry = require('pryjs')
 
 class MealFood {
   static create(attributes){
+    let meal_id = attributes.meal_id
+    let food_id = attributes.food_id
     return database('meal_foods')
-    .insert({meal_id: attributes.meal_id, food_id: attributes.id})
-    .returning(this.message(attributes))
-  }
-
-  static message(attributes) {
-    return database('meal_foods')
-    .select({mealName: 'meals.name'}, {foodName: 'foods.name'})
-    .where({meal_id: attributes.meal_id, food_id: attributes.id})
-    .join('meals', {'meals.id': 'meal_foods.meal_id'})
-    .join('foods', {'foods.id': 'meal_foods.food_id'})
-    .first()
+    .insert({meal_id: meal_id, food_id: food_id})
+    .then(() => {
+      return database.raw(`SELECT meals.name AS meal_name, foods.name AS food_name
+                   FROM meals
+                   INNER JOIN meal_foods mf ON meals.id = mf.meal_id
+                   INNER JOIN foods ON foods.id = mf.food_id
+                   WHERE meals.id=? AND foods.id=?`, [meal_id, food_id])
+    })
   }
 }
 

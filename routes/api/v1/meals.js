@@ -4,7 +4,7 @@ const MealsController = require('../../../controllers/mealsController')
 const MealFoodsController = require('../../../controllers/mealFoodsController')
 
 router.get('/', MealsController.index)
-router.post('/:meal_id/foods/:id', MealFoodsController.create)
+router.post('/:meal_id/foods/:food_id', MealFoodsController.create)
 router.get('/:meal_id/foods', MealsController.show)
 
 
