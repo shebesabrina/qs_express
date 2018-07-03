@@ -1,4 +1,6 @@
 const MealFood = require('../models/mealFood')
+const Meal = require('../models/meal')
+const Food = require('../models/Food')
 
 class MealFoodsController {
   static create(request, response, next){

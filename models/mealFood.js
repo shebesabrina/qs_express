@@ -19,7 +19,14 @@ class MealFood {
   }
 
   static destroy(attributes) {
+    let meal_id = attributes.meal_id
+    let food_id = attributes.food_id
     return database('meal_foods').where(attributes).del()
+    .then(() => {
+      return database.raw(`SELECT meals.name AS meal_name, foods.name AS food_name
+                           FROM meals, foods
+                           WHERE meals.id=? AND foods.id=?`, [meal_id, food_id])
+    })
   }
 }
 
