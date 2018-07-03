@@ -17,6 +17,10 @@ class MealFood {
                    WHERE meals.id=? AND foods.id=?`, [meal_id, food_id])
     })
   }
+
+  static destroy(attributes) {
+    return database('meal_foods').where(attributes).del()
+  }
 }
 
 module.exports = MealFood
