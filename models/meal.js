@@ -4,7 +4,7 @@ const database = require('knex')(configuration)
 
 class Meal {
   static all() {
-    return database('meals').select('id', 'name')
+    return database('meals').select('id', 'name').map(this.foods)
   }
 
   static find(id) {
