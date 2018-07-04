@@ -1,5 +1,5 @@
 exports.seed = function(knex, Promise) {
-  return knex.raw('TRUNCATE meals RESTART IDENTITY CASCADE')
+  return knex.raw('TRUNCATE foods RESTART IDENTITY CASCADE')
     .then(function() {
       return Promise.all([
         knex.raw('INSERT INTO foods (name, calories) VALUES (?, ?)', ["Pulled Pork", 700]),
