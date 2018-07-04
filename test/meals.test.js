@@ -16,9 +16,19 @@ const knex = require('knex')(configuration)
 
 /* Clean database and run migrations/seeds before each test*/
 describe('Meal endpoints', function() {
-  beforeEach(function(done) {
-    knex.seed.run()
-    .then(function() {
+  beforeEach((done) => {
+    knex.migrate.latest()
+    .then(() => {
+      knex.seed.run()
+      .then(() => {
+        done();
+      })
+    });
+  });
+
+  afterEach((done) => {
+    knex.migrate.rollback()
+    .then(() => {
       done();
     });
   });
@@ -47,7 +57,7 @@ describe('Meal endpoints', function() {
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(200);
-        expect(res.body.name).to.eq("Snack"); // This should be fixed to breakfast
+        expect(res.body.name).to.eq("Breakfast"); 
         expect(res.body.foods.length).to.eq(0)
         done();
       })

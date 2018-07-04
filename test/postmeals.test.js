@@ -16,7 +16,7 @@ const knex = require('knex')(configuration)
 
 
 /* Clean database and run migrations/seeds before each test*/
-describe('Food endpoints', function() {
+describe('Meal endpoints', function() {
   beforeEach((done) => {
     knex.migrate.latest()
     .then(() => {
@@ -33,30 +33,26 @@ describe('Food endpoints', function() {
       done();
     });
   });
-describe("POST /api/v1/foods", () => {
-  it('creates a new food object in the database', (done) => {
+describe("POST /api/v1/meals/1/foods/1", () => {
+  it('creates a new meal and foods relationship', (done) => {
     chai.request(app)
-    .post('/api/v1/foods')
-    .send({ "food": { "name": "veggies", "calories": 25} })
+    .post('/api/v1/meals/1/foods/1')
     .end((err, res) => {
       expect(err).to.be.null;
       expect(res).to.have.status(201);
-      expect(res.body.name).to.eq("veggies");
-      expect(res.body.calories).to.eq(25);
-      // expect(knex('foods').select('id', 'name', 'calories').to.eq(6);
+      expect(res.body.message).to.eq("Successfully added Pulled Pork to Breakfast");
       done();
     })
   })
-
-  it('does not create record if name missing', (done) => {
-    chai.request(app)
-    .post('/api/v1/foods')
-    .send({ "food": { "calories": 1} })
-    .end((err, res) => {
-      expect(res).to.have.status(400);
-      done();
-    })
-  })
+  // it('returns 404 if meal or foods does not exist', (done) => {
+  //   chai.request(app)
+  //   .post('/api/v1/meals/100/foods/100')
+  //   .end((err, res) => {
+  //     expect(err).to.be.null;
+  //     expect(res).to.have.status(404);
+  //     done();
+  //   })
+  // })
 })
 
 })

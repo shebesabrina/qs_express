@@ -15,9 +15,19 @@ const knex = require('knex')(configuration)
 
 /* Clean database and run migrations/seeds before each test*/
 describe('Food endpoints', function() {
-  beforeEach(function(done) {
-    knex.seed.run()
-    .then(function() {
+  beforeEach((done) => {
+    knex.migrate.latest()
+    .then(() => {
+      knex.seed.run()
+      .then(() => {
+        done();
+      })
+    });
+  });
+
+  afterEach((done) => {
+    knex.migrate.rollback()
+    .then(() => {
       done();
     });
   });
