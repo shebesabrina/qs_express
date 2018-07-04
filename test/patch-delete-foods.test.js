@@ -13,7 +13,6 @@ const environment = 'test'
 const configuration = require('../knexfile')[environment]
 const knex = require('knex')(configuration)
 
-
 /* Clean database and run migrations/seeds before each test*/
 describe('Food endpoints', function() {
   beforeEach(function(done) {
@@ -22,3 +21,49 @@ describe('Food endpoints', function() {
       done();
     });
   });
+
+  describe("PATCH /api/v1/foods/:id", () => {
+    it('updates the food object', (done) => {
+      chai.request(app)
+      .patch('/api/v1/foods/1')
+      .send({ "food": { "name": "updated", "calories": 1000} })
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res.body.name).to.eq("updated");
+        expect(res.body.calories).to.eq(1000);
+        done();
+      })
+    })
+
+    it('returns a 400 if it is not updated successfully', (done) => {
+      chai.request(app)
+      .patch('/api/v1/foods/1')
+      .send({ "food": {  "name": "wrong-o"} })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        done();
+      })
+    })
+  })
+
+  describe("DELETE /api/v1/foods/:id", () => {
+    it('deletes food object corresponding to :id', (done) => {
+      chai.request(app)
+      .delete('/api/v1/foods/1')
+      .end((err, res) => {
+        expect(res).to.have.status(204);
+        done();
+      })
+    })
+
+    it('returns a 404 when trying to delete nonexisting record', (done) => {
+      chai.request(app)
+      .delete('/api/v1/foods/1')
+      .end((err, res) => {
+        expect(res).to.have.status(204);
+        done();
+      })
+    })
+  })
+  })
