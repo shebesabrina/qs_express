@@ -48,7 +48,7 @@ describe('Food endpoints', function() {
   })
 
   describe("DELETE /api/v1/foods/:id", () => {
-    it('deletes food object corresponding to :id', (done) => {
+    it('deletes food object', (done) => {
       chai.request(app)
       .delete('/api/v1/foods/1')
       .end((err, res) => {
@@ -57,7 +57,7 @@ describe('Food endpoints', function() {
       })
     })
 
-    it('returns a 404 when trying to delete nonexisting record', (done) => {
+    it('returns a 404 when trying to delete a food that does not exist', (done) => {
       chai.request(app)
       .delete('/api/v1/foods/1')
       .end((err, res) => {
