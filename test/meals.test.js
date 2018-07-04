@@ -39,28 +39,29 @@ describe('Meal endpoints', function() {
       })
     })
   })
-  // 
-  // describe("GET /api/v1/foods/:id", () => {
-  //   it('returns food corresponding to :id', (done) => {
-  //     chai.request(app)
-  //     .get('/api/v1/foods/1')
-  //     .end((err, res) => {
-  //       expect(err).to.be.null;
-  //       expect(res).to.have.status(200);
-  //       expect(res.body.name).to.eq("Pulled Pork");
-  //       done();
-  //     })
-  //   })
-  //
-  //   it('returns 404 if there is no record', (done) => {
-  //     chai.request(app)
-  //     .get('/api/v1/foods/100')
-  //     .end((err, res) => {
-  //       expect(res).to.have.status(404);
-  //       done();
-  //     })
-  //   })
-  // })
+
+  describe("GET /api/v1/meals/:id/foods", () => {
+    it('returns food corresponding to :id', (done) => {
+      chai.request(app)
+      .get('/api/v1/meals/1/foods')
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res.body.name).to.eq("Snack"); // This should be fixed to breakfast
+        expect(res.body.foods.length).to.eq(0)
+        done();
+      })
+    })
+
+    it('returns 404 if there is no record', (done) => {
+      chai.request(app)
+      .get('/api/v1/meals/100/foods')
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done();
+      })
+    })
+  })
 
 
 });
