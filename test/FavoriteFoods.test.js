@@ -41,10 +41,10 @@ describe('Food endpoints', function() {
         expect(err).to.be.null;
         expect(res).to.have.status(200);
         eval(pry.it)
-        expect(res.body.timesEaten).to.eql(2);
+        expect(res.body.timesEaten).to.eql(3);
         expect(res.body.foods.length).to.eq(2);
-        expect(res.body.foods[0].name).to.eq("Banana");
-        expect(res.body.foods[1].name).to.eq("Meatloaf");
+        expect(res.body.foods[0].name).to.eq("Apple");
+        expect(res.body.foods[1].name).to.eq("Pulled Pork");
         done();
       })
     })

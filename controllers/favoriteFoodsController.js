@@ -5,7 +5,13 @@ const MealFood = require('../models/mealFood')
 class FavoriteFoodsController {
   static index(request, response, next){
     MealFood.favorite()
-    .then(foods => response.json(foods))
+    .then(function(favorites) {
+        if(!favorites.rows) {
+          return response.sendStatus(404)
+        } else {
+          response.json(favorites.rows)
+        }
+      })
   }
 
 }

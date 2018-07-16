@@ -6,9 +6,11 @@ pry = require('pryjs')
 class MealFood {
 
   static favorite(){
-    return database.raw(`SELECT meal_foods.food_id, COUNT(meal_foods.food_id) AS timesEaten
-                          FROM meal_foods GROUP BY meal_foods.food_id
-                          ORDER BY timesEaten DESC`)
+    return database.raw(`SELECT foods.name, foods.calories, COUNT(meal_foods.food_id) AS timesEaten
+                        FROM foods
+                        INNER JOIN meal_foods ON foods.id = meal_foods.food_id
+                        GROUP BY foods.name, foods.calories
+                        ORDER BY timesEaten DESC`)
   }
 
   static create(attributes){
