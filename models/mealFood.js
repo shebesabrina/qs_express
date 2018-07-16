@@ -6,11 +6,11 @@ pry = require('pryjs')
 class MealFood {
 
   static favorite(){
-    return database.raw(`SELECT foods.name, foods.calories, COUNT(meal_foods.food_id) AS timesEaten
-                        FROM foods
-                        INNER JOIN meal_foods ON foods.id = meal_foods.food_id
-                        GROUP BY foods.name, foods.calories
-                        ORDER BY timesEaten DESC`)
+    return database.raw(`SELECT DISTINCT(sub.timesEaten) as timesEaten, array_agg(jsonb_build_object('name', foods.name, 'calories', foods.calories, 'mealWhenEaten', sub.meals)) as foods
+                  FROM (SELECT DISTINCT COUNT(food_id) as timesEaten, food_id, array_agg(DISTINCT(meals.name)) as meals FROM meal_foods, meals WHERE meals.id = meal_foods.meal_id GROUP BY meal_foods.food_id) sub, foods
+                  WHERE foods.id = sub.food_id
+                  GROUP BY sub.timeseaten
+                  ORDER BY sub.timeseaten DESC;`)
   }
 
   static create(attributes){

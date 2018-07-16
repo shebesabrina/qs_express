@@ -37,13 +37,13 @@ class Food {
   }
 
   static meals(food){
-    return database('foods')
+    return database('meals')
     .select('meals.name')
     .join('meal_foods', {'meals.id': 'meal_foods.meal_id'})
     .where('meal_foods.food_id', food.id)
     .then(meals => {
       food.meals = meals
-      return food
+      return meals
     })
   }
 }

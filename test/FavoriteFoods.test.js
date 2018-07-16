@@ -41,6 +41,7 @@ describe('Food endpoints', function() {
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(200);
+        eval(pry.it)
         expect(res.body[0].timesEaten).to.eql('3');
         expect(res.body[0].foods.length).to.eq(2);
         done();
