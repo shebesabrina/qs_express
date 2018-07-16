@@ -4,6 +4,13 @@ const database = require('knex')(configuration)
 pry = require('pryjs')
 
 class MealFood {
+
+  static favorite(){
+    return database.raw(`SELECT meal_foods.food_id, COUNT(meal_foods.food_id) AS timesEaten
+                          FROM meal_foods GROUP BY meal_foods.food_id
+                          ORDER BY timesEaten DESC`)
+  }
+
   static create(attributes){
     let meal_id = attributes.meal_id
     let food_id = attributes.food_id
