@@ -20,6 +20,11 @@ class Food {
     .then(rows => rows[0])
   }
 
+  static find_by_name(name) {
+    return database('foods').where('name', name).select('id', 'name', 'calories')
+    .then(rows => rows[0])
+  }
+
   static update(id, attrs) {
     return database('foods').where('id', id)
     .update(attrs)
@@ -29,6 +34,17 @@ class Food {
 
   static destroy(id) {
     return database('foods').where('id', id).del()
+  }
+
+  static meals(food){
+    return database('foods')
+    .select('meals.name')
+    .join('meal_foods', {'meals.id': 'meal_foods.meal_id'})
+    .where('meal_foods.food_id', food.id)
+    .then(meals => {
+      food.meals = meals
+      return food
+    })
   }
 }
 

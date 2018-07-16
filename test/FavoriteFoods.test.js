@@ -6,6 +6,7 @@ const assert = chai.assert; // import { assert } from "chai" //
 const expect = chai.expect; // import { expect } from "chai" //
 const pry = require('pryjs')
 const app = require('../app')
+const Food = require('../models/food')
 
 chai.use(chaiHttp);
 //
