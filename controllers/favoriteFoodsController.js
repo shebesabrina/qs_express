@@ -13,6 +13,7 @@ class FavoriteFoodsController {
             var response_array = []
             for(var i=max; i > 0; i--){
               var foods = favorites.rows.filter(row => row.timeseaten == i)
+              foods.forEach(row => delete row.timeseaten)
               if(foods.length > 0) {
               response_array.push({
                   "timesEaten": i,
