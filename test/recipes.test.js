@@ -34,15 +34,17 @@ describe('Food endpoints', function() {
     });
   });
 
-  describe("GET /api/v1/favorite_foods", () => {
-    it('returns foods added to more than one meal', (done) => {
+  describe("GET /api/v1/foods/:id/recipes", () => {
+    it('shows recipes associated with a food', (done) => {
       chai.request(app)
-      .get('/api/v1/favorite_foods')
+      .get('/api/v1/foods/2/recipes')
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(200);
-        expect(res.body[0].timesEaten).to.eql('3');
-        expect(res.body[0].foods.length).to.eq(2);
+        eval(pry.it)
+        expect(res.body.recipes.length).to.eql(10);
+        expect(res.body.recipes.first.name).to.eq("something");
+        expect(res.body.recipes.first.url).to.eq("something");
         done();
       })
     })
