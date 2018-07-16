@@ -1,8 +1,7 @@
-require('isomorphic-fetch');
 const environment = process.env.NODE_ENV || 'development'
 const configuration = require('../knexfile')[environment]
 const database = require('knex')(configuration)
-const fetch = require('node-fetch')
+const fetch = require('isomorphic-fetch');
 const baseURL = 'http://api.yummly.com/v1/api/recipes'
 
 
