@@ -1,12 +1,12 @@
 exports.seed = function(knex, Promise) {
-  // Deletes ALL existing entries
-  return knex.raw('TRUNCATE meals RESTART IDENTITY CASCADE')
+  return knex.raw('TRUNCATE foods RESTART IDENTITY CASCADE')
     .then(function() {
       return Promise.all([
-        knex.raw('INSERT INTO meals (name) VALUES (?)', ["Breakfast"]),
-        knex.raw('INSERT INTO meals (name) VALUES (?)', ["Snack"]),
-        knex.raw('INSERT INTO meals (name) VALUES (?)', ["Lunch"]),
-        knex.raw('INSERT INTO meals (name) VALUES (?)', ["Dinner"])
+        knex.raw('INSERT INTO foods (name, calories) VALUES (?, ?)', ["Pulled Pork", 700]),
+        knex.raw('INSERT INTO foods (name, calories) VALUES (?, ?)', ["Baked Beans", 300]),
+        knex.raw('INSERT INTO foods (name, calories) VALUES (?, ?)', ["Potato", 400]),
+        knex.raw('INSERT INTO foods (name, calories) VALUES (?, ?)', ["Apple", 80]),
+        knex.raw('INSERT INTO foods (name, calories) VALUES (?, ?)', ["Salad", 250])
       ])
     })
   }
