@@ -9,7 +9,18 @@ class FavoriteFoodsController {
         if(!favorites.rows) {
           return response.sendStatus(404)
         } else {
-          response.json(favorites.rows)
+            var max = favorites.rows[0].timeseaten
+            var response_array = []
+            for(var i=max; i > 0; i--){
+              var foods = favorites.rows.filter(row => row.timeseaten == i)
+              if(foods.length > 0) {
+              response_array.push({
+                  "timesEaten": i,
+                  "foods": foods
+                  })
+                }
+            }
+            return response.json(response_array)
         }
       })
   }
