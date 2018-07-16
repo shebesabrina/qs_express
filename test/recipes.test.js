@@ -41,10 +41,7 @@ describe('Food endpoints', function() {
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(200);
-        eval(pry.it)
         expect(res.body.recipes.length).to.eql(10);
-        expect(res.body.recipes.first.name).to.eq("something");
-        expect(res.body.recipes.first.url).to.eq("something");
         done();
       })
     })

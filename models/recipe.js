@@ -2,20 +2,28 @@ require('isomorphic-fetch');
 const environment = process.env.NODE_ENV || 'development'
 const configuration = require('../knexfile')[environment]
 const database = require('knex')(configuration)
+const fetch = require('node-fetch')
+const baseURL = 'http://api.yummly.com/v1/api/recipes'
 
 
-fetch('http://api.yummly.com/v1/api/recipes?_app_id=2e2c0a2e&_app_key=083edf3221f3c68df434cef4487c8df9y&q=banana')
-.then((response) => console.log(response))
 
 class Recipe {
-  static all(food_id) {
-    const allRecipes = () => {
-      fetch('http://api.yummly.com/v1/api/recipes?_app_id=2e2c0a2e&_app_key=083edf3221f3c68df434cef4487c8df9y&q=banana')
-      .then((response) => console.log(response))
-      .catch((error) => console.error({ error }));
+  static all(food) {
+    return fetch(`${baseURL}?q=${food.name}`, {
+      headers: {'Content-Type': 'application/json',
+                'X-Yummly-App-ID': process.env.YUM_ID,
+                'X-Yummly-App-Key': process.env.YUM_KEY}
+    })
+    .then((response) => {
+      return response.json()
+    })
+    .then((recipes) => {
+      return { recipes: recipes.matches.map((recipe) => {
+        return { name: recipe.recipeName, url: `http://www.yummly.com/recipe/${recipe.id}` }
+      })
     }
+    })
   }
-
 }
 
 module.exports = Recipe
