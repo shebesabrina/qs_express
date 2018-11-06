@@ -5,7 +5,7 @@
 1. Clone this repository and rename the repository to `quantified-self-express` in one command
 
   ```shell
-  git clone git@github.com:lilwillifo/quantified-self-express.git
+  git clone git@github.com:shebesabrina/quantified-self-express.git
   ```
 2. Change into the `quantified-self-express` directory
 
@@ -50,7 +50,7 @@ Once the server is running, visit API endpoints in your browser:
 
 ### Endpoints
 
-* To see the [front end](https://github.com/lilwillifo/quantified-self-fe) deployed with this app, visit https://lilwillifo.github.io/quantified-self-fe/
+* To see the [front end](https://github.com/shebesabrina/quantified-self-fe-express) deployed with this app, visit https://shebesabrina.github.io/quantified-self-fe-express/
 
 Back End Production Base URL:  https://qs-express-mw.herokuapp.com
 Local Base URL:       http://localhost:3000
